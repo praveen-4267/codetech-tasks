@@ -1,0 +1,49 @@
+import java.io.*;
+
+public class FileHandling {
+    public static void main(String[] args) {
+        String filePath = "sample.txt";
+
+        // Write to a file
+        writeFile(filePath, "Hello, this is a sample text.");
+
+        // Read the file
+        readFile(filePath);
+
+        // Modify the file (append text)
+        appendToFile(filePath, "\nThis is an appended line.");
+
+        // Read the file again to confirm modification
+        readFile(filePath);
+    }
+
+    public static void writeFile(String filePath, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(content);
+            System.out.println("File written successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void readFile(String filePath) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            System.out.println("Reading file:");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void appendToFile(String filePath, String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
+            writer.write(content);
+            System.out.println("File modified successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
